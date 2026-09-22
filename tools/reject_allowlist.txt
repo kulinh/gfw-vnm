@@ -1,0 +1,24 @@
+# Domains (and their subdomains) that must never be REJECTed by sr_reject_list.
+# ChatGPT / Claude / Gemini call these; blocking them breaks the apps.
+# Apply after every upstream sync:  python3 tools/filter_reject.py
+openai.com
+chatgpt.com
+oaistatic.com
+oaiusercontent.com
+anthropic.com
+claude.ai
+claude.com
+gemini.google.com
+statsig.com
+statsigapi.net
+featuregates.org
+featureassets.org
+prodregistryv2.org
+auth0.com
+arkoselabs.com
+livekit.cloud
+intercom.io
+intercomcdn.com
+browser-intake-datadoghq.com
+sentry.io
+challenges.cloudflare.com

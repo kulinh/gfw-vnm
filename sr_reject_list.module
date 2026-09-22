@@ -1,6 +1,6 @@
 #!name=reject_list
 #!homepage=https://github.com/GMOogway/shadowrocket-rules
-#!desc=Rules:174738 Created:05-06 07:25 Publisher:GMOogway
+#!desc=Rules:174729 Created:05-06 07:25 Publisher:GMOogway
 [Rule]
 DOMAIN-SUFFIX,nofreezingmac.space,REJECT
 DOMAIN-SUFFIX,trk.tabucbd.com,REJECT
@@ -15681,7 +15681,6 @@ DOMAIN-SUFFIX,etscju.mens-rize.com,REJECT
 DOMAIN-SUFFIX,rgmbu.incauthority.com,REJECT
 DOMAIN-SUFFIX,ozhkswjnmluhj.space,REJECT
 DOMAIN-SUFFIX,rj3lgz9y95r8fy5pbfl7ftzbyq5oey.rest,REJECT
-DOMAIN-SUFFIX,bzrcdn.openai.com,REJECT
 DOMAIN-SUFFIX,s2.silkybelle.hu,REJECT
 DOMAIN-SUFFIX,igpnpnmbommga.website,REJECT
 DOMAIN-SUFFIX,manager.eaglecreek.com,REJECT
@@ -17110,7 +17109,6 @@ DOMAIN-SUFFIX,ulevinjjxhtkx.com,REJECT
 DOMAIN-SUFFIX,trullolecyth.shop,REJECT
 DOMAIN-SUFFIX,tobaltoyon.com,REJECT
 DOMAIN-SUFFIX,adit-media.com,REJECT
-DOMAIN-SUFFIX,api.statsig.com,REJECT
 DOMAIN-SUFFIX,api.affiliate.logitravel.com,REJECT
 DOMAIN-SUFFIX,campaign.mazda.co.uk,REJECT
 DOMAIN-SUFFIX,ruttientindung-payonline.com,REJECT
@@ -81588,7 +81586,6 @@ DOMAIN-SUFFIX,load.sgtm.sparfenster.de,REJECT
 DOMAIN-SUFFIX,a3.jandan.net,REJECT
 DOMAIN-SUFFIX,a8clk.psd.jp,REJECT
 DOMAIN-SUFFIX,jmoofprjgqtwr.space,REJECT
-DOMAIN-SUFFIX,adobemetrics.auth0.com,REJECT
 DOMAIN-SUFFIX,kqkcoq.vidaxl.fr,REJECT
 DOMAIN-SUFFIX,enricher.stape.beer,REJECT
 DOMAIN-SUFFIX,omnistats.jetblue.com,REJECT
@@ -120471,7 +120468,6 @@ DOMAIN-SUFFIX,tiny-atmosphere.com,REJECT
 DOMAIN-SUFFIX,fszjk.sterlingwhite.com,REJECT
 DOMAIN-SUFFIX,gtm.mrshoppingbd.com,REJECT
 DOMAIN-SUFFIX,vietcomcredit.com,REJECT
-DOMAIN-SUFFIX,browser-intake-datadoghq.com,REJECT
 DOMAIN-SUFFIX,load.metrics.derham.ch,REJECT
 DOMAIN-SUFFIX,pyxbidiocnkkl.website,REJECT
 DOMAIN-SUFFIX,wlmleoeykzsmm.space,REJECT
@@ -123791,7 +123787,6 @@ DOMAIN-SUFFIX,servside.rxrprotect.com,REJECT
 DOMAIN-SUFFIX,garotemuruxi.com,REJECT
 DOMAIN-SUFFIX,tracking.umbrella.com,REJECT
 DOMAIN-SUFFIX,daaae00aa4.com,REJECT
-DOMAIN-SUFFIX,events.statsigapi.net,REJECT
 DOMAIN-SUFFIX,qrx.edlopizzakingexpress.co.uk,REJECT
 DOMAIN-SUFFIX,folbwkw.com,REJECT
 DOMAIN-SUFFIX,qrjiyastbajim.store,REJECT
@@ -134840,7 +134835,6 @@ DOMAIN-SUFFIX,visit.speakersacademy.com,REJECT
 DOMAIN-SUFFIX,ahoravideo-endpoint.xyz,REJECT
 DOMAIN-SUFFIX,www.perso.ch,REJECT
 DOMAIN-SUFFIX,nichedlinks.com,REJECT
-DOMAIN-SUFFIX,featuregates.org,REJECT
 DOMAIN-SUFFIX,plqppzwynutqu.space,REJECT
 DOMAIN-SUFFIX,automobiledeem.com,REJECT
 DOMAIN-SUFFIX,imitrex.3.p2l.info,REJECT
@@ -149658,7 +149652,6 @@ DOMAIN-SUFFIX,tk.airfrance.gp,REJECT
 DOMAIN-SUFFIX,ywrcqa.wtol.com,REJECT
 DOMAIN-SUFFIX,uokwdslnjwxwz.online,REJECT
 DOMAIN-SUFFIX,server.zenattirebd.com,REJECT
-DOMAIN-SUFFIX,featureassets.org,REJECT
 DOMAIN-SUFFIX,sanalytics.firstnational.com,REJECT
 DOMAIN-SUFFIX,rtb-eu.yieldoz.com,REJECT
 DOMAIN-SUFFIX,kvoqd.madeincookware.co.uk,REJECT
@@ -160650,7 +160643,6 @@ DOMAIN-SUFFIX,splotchtotemy.cfd,REJECT
 DOMAIN-SUFFIX,b7510.com,REJECT
 DOMAIN-SUFFIX,majjwxcciy.com,REJECT
 DOMAIN-SUFFIX,blrzaikduqaar.site,REJECT
-DOMAIN-SUFFIX,statsig.anthropic.com,REJECT
 DOMAIN-SUFFIX,elliptical-schedule.com,REJECT
 DOMAIN-SUFFIX,load.stape.hotleadbot.com,REJECT
 DOMAIN-SUFFIX,stats.leahcollection.com,REJECT
@@ -166079,7 +166071,6 @@ DOMAIN-SUFFIX,metrics.nrma.com.au,REJECT
 DOMAIN-SUFFIX,1.xuexi.la,REJECT
 DOMAIN-SUFFIX,data.francecanape.com,REJECT
 DOMAIN-SUFFIX,data.drhauschka.de,REJECT
-DOMAIN-SUFFIX,bzr.openai.com,REJECT
 DOMAIN-SUFFIX,unsubscribe.e.gminsurance.com,REJECT
 DOMAIN-SUFFIX,securedata.dreambaby.be,REJECT
 DOMAIN-SUFFIX,ykgfzgxfxiehq.space,REJECT

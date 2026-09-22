@@ -39,6 +39,8 @@ Repo dùng dạng **module rule** thay vì file config đầy đủ — gọn g�
 | [`sr_reject_list.module`](sr_reject_list.module) | ~175.000 domain quảng cáo / tracker → chặn | REJECT |
 
 > `sr_direct_list` và `sr_reject_list` được **đồng bộ thủ công** từ upstream [GMOogway/shadowrocket-rules](https://github.com/GMOogway/shadowrocket-rules) (repo này không chạy CI tự build). Bốn module `CN`, `UAE`, `RU`, `zalo_zalopay` là **tùy biến riêng** của repo.
+>
+> Sau mỗi lần đồng bộ `sr_reject_list` từ upstream, chạy `python3 tools/filter_reject.py`: script bỏ các domain trong [`tools/reject_allowlist.txt`](tools/reject_allowlist.txt) (ChatGPT / Claude / Gemini và dịch vụ phụ của chúng như Statsig, featuregates, Datadog) — upstream REJECT những domain này làm app AI lỗi.
 
 ---
 

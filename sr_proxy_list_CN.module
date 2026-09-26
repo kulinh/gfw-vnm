@@ -410,9 +410,9 @@ IP-CIDR,1.1.1.1/32,PROXY,no-resolve
 IP-CIDR,1.0.0.1/32,PROXY,no-resolve
 
 # ----------------------------------------------------------------------------
-# KIỂM TRA IP (mở ip.sb khi bật VPN: phải ra IP của node, không phải IP nhà)
+# KIỂM TRA IP (mở ip.rwl247.dev khi bật VPN: phải ra IP của node, không phải IP nhà)
 # ----------------------------------------------------------------------------
-DOMAIN-SUFFIX,ip.sb,PROXY
+DOMAIN,ip.rwl247.dev,PROXY
 
 # ----------------------------------------------------------------------------
 # CDN LỚN (chỉ bắt domain CDN của chính nhà cung cấp, không ảnh hưởng site TQ)

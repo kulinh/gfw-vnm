@@ -309,7 +309,7 @@ IP-CIDR,8.8.8.0/24,no-resolve
 IP-CIDR,8.8.4.0/24,no-resolve
 IP-CIDR,1.1.1.1/32,no-resolve
 IP-CIDR,1.0.0.1/32,no-resolve
-DOMAIN-SUFFIX,ip.sb
+DOMAIN,ip.rwl247.dev
 DOMAIN-SUFFIX,akamai.net
 DOMAIN-SUFFIX,akamaized.net
 DOMAIN-SUFFIX,akamaihd.net

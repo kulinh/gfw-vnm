@@ -1,5 +1,5 @@
-# sr_proxy_list_RU.list — sinh tự động từ sr_proxy_list_RU.module (không sửa tay).
-# Dùng làm RULE-SET: RULE-SET,https://raw.githubusercontent.com/kulinh/shadowrocket-vietnamese/master/sr_proxy_list_RU.list,PROXY
+# sr_proxy_list_RU.list — generated from sr_proxy_list_RU.module by tools/build.py (do not edit).
+# Shadowrocket: RULE-SET,https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_RU.list,PROXY
 DOMAIN-SUFFIX,whatsapp.com
 DOMAIN-SUFFIX,whatsapp.net
 DOMAIN-SUFFIX,whatsapp.biz

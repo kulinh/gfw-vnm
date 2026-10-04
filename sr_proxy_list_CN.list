@@ -1,5 +1,5 @@
-# sr_proxy_list_CN.list — sinh tự động từ sr_proxy_list_CN.module (không sửa tay).
-# Dùng làm RULE-SET: RULE-SET,https://raw.githubusercontent.com/kulinh/shadowrocket-vietnamese/master/sr_proxy_list_CN.list,PROXY
+# sr_proxy_list_CN.list — generated from sr_proxy_list_CN.module by tools/build.py (do not edit).
+# Shadowrocket: RULE-SET,https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_CN.list,PROXY
 DOMAIN-SUFFIX,google.com
 DOMAIN-SUFFIX,googleapis.com
 DOMAIN-SUFFIX,gstatic.com
@@ -269,6 +269,8 @@ DOMAIN-SUFFIX,substack.com
 DOMAIN-SUFFIX,substackcdn.com
 DOMAIN-SUFFIX,patreon.com
 DOMAIN-SUFFIX,canva.com
+DOMAIN-SUFFIX,bsky.app
+DOMAIN-SUFFIX,bsky.social
 DOMAIN-SUFFIX,notion.so
 DOMAIN-SUFFIX,notion.site
 DOMAIN-SUFFIX,notion.com
@@ -287,9 +289,18 @@ DOMAIN-SUFFIX,1drv.ms
 DOMAIN-SUFFIX,1drv.com
 DOMAIN-SUFFIX,proton.me
 DOMAIN-SUFFIX,protonmail.com
+DOMAIN-SUFFIX,apkmirror.com
+DOMAIN-SUFFIX,apkpure.com
+DOMAIN-SUFFIX,f-droid.org
+DOMAIN-SUFFIX,binance.com
+DOMAIN-SUFFIX,bnbstatic.com
+DOMAIN-SUFFIX,coinbase.com
+DOMAIN-SUFFIX,tradingview.com
+DOMAIN-SUFFIX,tradingview-widget.com
 DOMAIN-SUFFIX,rfa.org
 DOMAIN-SUFFIX,voanews.com
 DOMAIN-SUFFIX,voatiengviet.com
+DOMAIN-SUFFIX,voachinese.com
 DOMAIN-SUFFIX,rfi.fr
 DOMAIN-SUFFIX,nytimes.com
 DOMAIN-SUFFIX,washingtonpost.com

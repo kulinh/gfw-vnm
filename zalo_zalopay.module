@@ -1,6 +1,6 @@
 #!name=Zalo & ZaloPay Full Proxy + IP Ranges (2026)
 #!desc=Route TOÀN BỘ traffic Zalo & ZaloPay qua proxy (chế độ thử nghiệm). Gồm đầy đủ domain (chat/API/media/thanh toán/merchant) + toàn bộ dải IP của VNG Corporation (AS38244) đã gộp tối thiểu. Lưu ý: dải IP VNG dùng chung cho mọi sản phẩm VNG, không tách riêng Zalo được.
-#!homepage=https://github.com/kulinh/shadowrocket-vietnamese
+#!homepage=https://github.com/kulinh/gfw-vnm
 
 [Rule]
 

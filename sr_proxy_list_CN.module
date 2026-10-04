@@ -1,11 +1,10 @@
 #!name=GFW Optimized Proxy List (CN) 2026
-#!desc=Danh sách PROXY tối ưu & toàn diện để vượt GFW khi ở Trung Quốc. Bao phủ đầy đủ: Google/Alphabet (Search/Gmail/Drive/Docs/Meet/Maps/Photos/YouTube/Play/Android/Firebase/GCP/Gemini), Meta (Facebook/Instagram/Threads/Messenger/WhatsApp/Oculus), Telegram, Viber, TikTok, X/Twitter, LINE/KakaoTalk/Naver + AI + Dev + Media/Streaming + Báo chí + CDN. Kèm IP-CIDR (đối chiếu BGP 09/2026) cho dịch vụ hay bị nhiễm DNS. Bản 2026-09: +DNS công cộng, +Cloudflare Pages/Workers, +Disney+/Max/Prime, +báo quốc tế & VOA/RFA. Bản 2026-09-13 (globalping từ CN + OONI): +Sora/claude.com/Copilot/Midjourney/hf.co, +OneDrive, +RFI/WaPo/SCMP; bỏ byteimg.com (CDN nội địa Toutiao/掘金), jsdelivr/unpkg/cloudflare.com/box.com (mở thẳng ở TQ).
-#!homepage=https://github.com/kulinh/shadowrocket-vietnamese
+#!desc=Danh sách PROXY tối ưu & toàn diện để vượt GFW khi ở Trung Quốc. Bao phủ đầy đủ: Google/Alphabet (Search/Gmail/Drive/Docs/Meet/Maps/Photos/YouTube/Play/Android/Firebase/GCP/Gemini), Meta (Facebook/Instagram/Threads/Messenger/WhatsApp/Oculus), Telegram, Viber, TikTok, X/Twitter, LINE/KakaoTalk/Naver + AI + Dev + Media/Streaming + Báo chí + CDN. Kèm IP-CIDR (đối chiếu BGP 09/2026) cho dịch vụ hay bị nhiễm DNS. Bản 2026-09: +DNS công cộng, +Cloudflare Pages/Workers, +Disney+/Max/Prime, +báo quốc tế & VOA/RFA. Bản 2026-09-13 (globalping từ CN + OONI): +Sora/claude.com/Copilot/Midjourney/hf.co, +OneDrive, +RFI/WaPo/SCMP; bỏ byteimg.com (CDN nội địa Toutiao/掘金), jsdelivr/unpkg/cloudflare.com/box.com (mở thẳng ở TQ). Bản 2026-10-04 (globalping từ CN, 6 node 3 nhà mạng, 0/6 vào được): +Bluesky, APKMirror/APKPure/F-Droid, Binance/Coinbase/TradingView, VOA tiếng Trung.
+#!homepage=https://github.com/kulinh/gfw-vnm
 
 # ============================================================================
 #  HƯỚNG DẪN DÙNG (BLACKLIST MODE — dành cho khi ở Trung Quốc)
-#  1) Cài đặt > Module: thêm module này. Nếu dùng kèm sr_reject_list (chặn
-#     quảng cáo) thì đặt module reject Ở TRÊN, module proxy này ở dưới.
+#  1) Cài đặt > Module: thêm module này.
 #  2) Trong file config (.conf), phần [Rule] dòng CUỐI CÙNG phải là:
 #        FINAL,DIRECT
 #     => Các domain dưới đây đi PROXY (vượt GFW), tất cả phần còn lại đi thẳng.
@@ -355,6 +354,9 @@ DOMAIN-SUFFIX,substack.com,PROXY
 DOMAIN-SUFFIX,substackcdn.com,PROXY
 DOMAIN-SUFFIX,patreon.com,PROXY
 DOMAIN-SUFFIX,canva.com,PROXY
+# Bluesky: bsky.app + bsky.social timeout từ TQ 0/6 (04/10/2026)
+DOMAIN-SUFFIX,bsky.app,PROXY
+DOMAIN-SUFFIX,bsky.social,PROXY
 # notion: itdog.cn 12/09/2026 ~60% node đại lục lỗi (chặn không đều) -> cho đi proxy
 DOMAIN-SUFFIX,notion.so,PROXY
 DOMAIN-SUFFIX,notion.site,PROXY
@@ -378,6 +380,16 @@ DOMAIN-SUFFIX,1drv.ms,PROXY
 DOMAIN-SUFFIX,1drv.com,PROXY
 DOMAIN-SUFFIX,proton.me,PROXY
 DOMAIN-SUFFIX,protonmail.com,PROXY
+# --- Kho ứng dụng Android ngoài Play (0/6 từ TQ, 04/10/2026; apkpure.net vẫn mở) ---
+DOMAIN-SUFFIX,apkmirror.com,PROXY
+DOMAIN-SUFFIX,apkpure.com,PROXY
+DOMAIN-SUFFIX,f-droid.org,PROXY
+# --- Tiền mã hoá / biểu đồ (0/6 từ TQ, 04/10/2026; tradingview-widget.com bị nhiễm DNS/reset) ---
+DOMAIN-SUFFIX,binance.com,PROXY
+DOMAIN-SUFFIX,bnbstatic.com,PROXY
+DOMAIN-SUFFIX,coinbase.com,PROXY
+DOMAIN-SUFFIX,tradingview.com,PROXY
+DOMAIN-SUFFIX,tradingview-widget.com,PROXY
 
 # ----------------------------------------------------------------------------
 # BÁO CHÍ QUỐC TẾ & TIẾNG VIỆT HẢI NGOẠI (bị chặn ở TQ)
@@ -385,6 +397,7 @@ DOMAIN-SUFFIX,protonmail.com,PROXY
 DOMAIN-SUFFIX,rfa.org,PROXY
 DOMAIN-SUFFIX,voanews.com,PROXY
 DOMAIN-SUFFIX,voatiengviet.com,PROXY
+DOMAIN-SUFFIX,voachinese.com,PROXY
 DOMAIN-SUFFIX,rfi.fr,PROXY
 DOMAIN-SUFFIX,nytimes.com,PROXY
 DOMAIN-SUFFIX,washingtonpost.com,PROXY

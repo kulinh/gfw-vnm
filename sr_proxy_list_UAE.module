@@ -1,10 +1,10 @@
 #!name=UAE OTT Bypass (VoIP & Video Call) 2026
 #!desc=Vượt firewall TDRA ở UAE, đúng và đủ: (1) mở GỌI THOẠI & VIDEO qua OTT (WhatsApp, FaceTime, Messenger, Viber, Zalo, Telegram, Signal, Discord, imo, Snapchat, LINE, KakaoTalk, WeChat) kèm IP-CIDR server media (RTP/STUN/TURN) đối chiếu BGP 09/2026; (2) các nhóm site TDRA chặn hẳn, đã kiểm chứng từ mạng du + Etisalat 12/09/2026 (người lớn, cờ bạc, hẹn hò, nhà cung cấp VPN, vài báo); (3) DNS công cộng. Bản 2026-09: BỎ các rule thừa làm chậm máy (Google/YouTube/Netflix/X/TikTok, Teams/Meet/Skype, CDN Akamai/CloudFront/Cloudflare) vì ở UAE chúng mở bình thường. 13/09/2026: đối chiếu lại BGP (Meta AS32934, Telegram cidr.txt, VNG AS38244 — đủ), bỏ proton.me (Proton Mail mở bình thường) và 2 rule trùng qq.com.
-#!homepage=https://github.com/kulinh/shadowrocket-vietnamese
+#!homepage=https://github.com/kulinh/gfw-vnm
 
 # ============================================================================
 #  HƯỚNG DẪN (BLACKLIST MODE — cho khi ở UAE)
-#  1) Cài đặt > Module: thêm module này (đặt sr_reject_list ở trên nếu dùng).
+#  1) Cài đặt > Module: thêm module này.
 #     KHÔNG nạp zalo_zalopay ở UAE: module đó ép Zalo đi thẳng, cuộc gọi Zalo
 #     sẽ bị TDRA chặn.
 #  2) Trong config (.conf), phần [Rule] dòng CUỐI CÙNG đặt:  FINAL,DIRECT

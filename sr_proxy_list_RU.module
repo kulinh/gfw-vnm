@@ -1,10 +1,10 @@
 #!name=Russia RKN Bypass (TSPU) 2026
 #!desc=Vượt TSPU/Roskomnadzor ở Nga (bản 13/09/2026, đối chiếu tài liệu + đo TCP từ 7 mạng RU, chưa kiểm chứng trên 4G tại chỗ): (1) OTT nhắn tin/gọi bị chặn hẳn (WhatsApp, Viber, Signal, Discord, FaceTime, Snapchat, Threema) hoặc bóp (Telegram ~80% từ 03/2026, gọi Telegram tắt từ 08/2025) kèm IP-CIDR server media; (2) Meta/X/LinkedIn/Twitch/TikTok; (3) YouTube (chặn hẳn từ 02/2026) + streaming đã rút khỏi Nga; (4) báo chí bị chặn; (5) VPN/privacy; (6) AI/dev/cloud; (7) hosting nước ngoài & Cloudflare bị bóp 16 KB (từ 06/2025, còn hiệu lực 07/2026); (8) DNS công cộng. Dòng có "# chưa xác minh" = chưa có nguồn 2026 độc lập.
-#!homepage=https://github.com/kulinh/shadowrocket-vietnamese
+#!homepage=https://github.com/kulinh/gfw-vnm
 
 # ============================================================================
 #  HƯỚNG DẪN (BLACKLIST MODE — cho khi ở Nga)
-#  1) Cài đặt > Module: thêm module này (đặt sr_reject_list ở trên nếu dùng).
+#  1) Cài đặt > Module: thêm module này.
 #  2) Trong config (.conf), phần [Rule] dòng CUỐI CÙNG đặt:  FINAL,DIRECT
 #     => Các domain/IP dưới đây đi PROXY, phần còn lại (Yandex, VK, Sber,
 #     Gosuslugi, Ozon...) đi thẳng. Rất quan trọng: app ngân hàng/dịch vụ Nga

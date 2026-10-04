@@ -1,6 +1,7 @@
-# QUAN TRỌNG: KHÔNG ignore *.module — repo này tồn tại để phục vụ chính file .module
-# Chỉ bỏ qua rác hệ thống.
+# Never ignore *.module / *.list / sing-box/*: serving those files is the point
+# of this repo. Only editor and OS junk here.
 .DS_Store
 Thumbs.db
 *.swp
 *.tmp
+__pycache__/

@@ -1,33 +1,30 @@
 #!name=UAE OTT Bypass (VoIP & Video Call) 2026
-#!desc=Vượt firewall TDRA ở UAE, đúng và đủ: (1) mở GỌI THOẠI & VIDEO qua OTT (WhatsApp, FaceTime, Messenger, Viber, Zalo, Telegram, Signal, Discord, imo, Snapchat, LINE, KakaoTalk, WeChat) kèm IP-CIDR server media (RTP/STUN/TURN) đối chiếu BGP 09/2026; (2) các nhóm site TDRA chặn hẳn, đã kiểm chứng từ mạng du + Etisalat 12/09/2026 (người lớn, cờ bạc, hẹn hò, nhà cung cấp VPN, vài báo); (3) DNS công cộng. Bản 2026-09: BỎ các rule thừa làm chậm máy (Google/YouTube/Netflix/X/TikTok, Teams/Meet/Skype, CDN Akamai/CloudFront/Cloudflare) vì ở UAE chúng mở bình thường. 13/09/2026: đối chiếu lại BGP (Meta AS32934, Telegram cidr.txt, VNG AS38244 — đủ), bỏ proton.me (Proton Mail mở bình thường) và 2 rule trùng qq.com.
+#!desc=Gets past the TDRA firewall in the UAE, no more and no less: (1) VOICE & VIDEO CALLS over OTT apps (WhatsApp, FaceTime, Messenger, Viber, Zalo, Telegram, Signal, Discord, imo, Snapchat, LINE, KakaoTalk, WeChat) with IP-CIDR for their media servers (RTP/STUN/TURN), checked against BGP 09/2026; (2) the site groups TDRA blocks outright, verified from du and Etisalat on 2026-09-12 (adult, gambling, dating, VPN providers, some press); (3) public DNS. Services that open normally in the UAE (Google/YouTube/Netflix/X/TikTok, Teams/Meet/Skype, Akamai/CloudFront/Cloudflare CDNs) are deliberately left out — proxying them only slows the phone down. 2026-09-13: BGP re-checked (Meta AS32934, Telegram cidr.txt, VNG AS38244), proton.me dropped (Proton Mail opens normally), 2 duplicate qq.com rules removed.
 #!homepage=https://github.com/kulinh/gfw-vnm
 
 # ============================================================================
-#  HƯỚNG DẪN (BLACKLIST MODE — cho khi ở UAE)
-#  1) Cài đặt > Module: thêm module này.
-#     KHÔNG nạp zalo_zalopay ở UAE: module đó ép Zalo đi thẳng, cuộc gọi Zalo
-#     sẽ bị TDRA chặn.
-#  2) Trong config (.conf), phần [Rule] dòng CUỐI CÙNG đặt:  FINAL,DIRECT
-#     => Các domain/IP dưới đây đi PROXY, phần còn lại đi thẳng.
-#  3) Nếu app báo lỗi phát hiện proxy: Cài đặt > Proxy > đổi sang none (TUN).
-#  4) Dùng với config sinh từ panel cf-vpn (RWL8899.conf): thêm &rules=uae vào
-#     link config, Worker sẽ nhúng sẵn toàn bộ rule dưới đây (không cần thêm
-#     module). Xem README mục "Dùng với cf-vpn".
-#  Lưu ý quan trọng cho VoIP: TDRA không chặn web của WhatsApp/Viber/Zalo…
-#  (tất cả mở bình thường) mà chặn KÊNH THOẠI: cuộc gọi nối tới server media
-#  bằng IP (STUN/TURN/RTP), nên các khối IP-CIDR bên dưới là BẮT BUỘC.
-#  Đã cấp phép ở UAE nên KHÔNG cần proxy: Botim, C'Me, Voico, Zoom, Microsoft
-#  Teams, Google Meet, Webex. Skype tiêu dùng đã đóng cửa (05/2025).
-#  Nguồn đối chiếu (09/2026): RIPEstat announced-prefixes AS32934 (Meta),
+#  HOW TO USE (blacklist mode, while in the UAE)
+#  1) Settings > Modules: add this module.
+#  2) In your config (.conf) the LAST line of [Rule] must be:  FINAL,DIRECT
+#     => the domains/IPs below go through PROXY, everything else goes direct.
+#  3) If an app complains it detects a proxy: Settings > Proxy > none (TUN).
+#  4) cf-vpn panel configs (RWL-UAE, &rules=uae) already inline every rule
+#     below — no module needed there.
+#  Important for VoIP: TDRA does not block the WhatsApp/Viber/Zalo... websites
+#  (they all open), it blocks the VOICE CHANNEL: calls reach the media servers
+#  by IP (STUN/TURN/RTP), so the IP-CIDR blocks below are REQUIRED.
+#  Licensed in the UAE, so NO proxy needed: Botim, C'Me, Voico, Zoom, Microsoft
+#  Teams, Google Meet, Webex. Consumer Skype shut down (05/2025).
+#  Sources (09/2026): RIPEstat announced-prefixes AS32934 (Meta),
 #  AS62014/62041/59930/44907/211157 (Telegram), AS38244 (VNG/Zalo); Apple
-#  17.0.0.0/8 theo Apple HT210060; test HTTPS từ du (AS15802) + Etisalat
-#  (AS5384) qua globalping.io ngày 12/09/2026.
+#  17.0.0.0/8 per Apple HT210060; HTTPS tests from du (AS15802) and Etisalat
+#  (AS5384) via globalping.io on 2026-09-12.
 # ============================================================================
 
 [Rule]
 
 # ============================================================================
-#  NHÓM 1 — OTT NHẮN TIN / GỌI THOẠI & VIDEO  (trọng tâm cho UAE)
+#  GROUP 1 — OTT MESSAGING / VOICE & VIDEO CALLS  (the core for the UAE)
 # ============================================================================
 
 # ---------------------------- WhatsApp --------------------------------------
@@ -47,9 +44,9 @@ DOMAIN-SUFFIX,cdninstagram.com,PROXY
 DOMAIN-SUFFIX,meta.com,PROXY
 
 # ---------------------------- FaceTime (Apple) ------------------------------
-#   Chỉ phần FaceTime/iMessage signaling; App Store, iCloud, CDN (mzstatic,
-#   aaplimg) đi thẳng cho nhanh. Media relay của FaceTime nằm trong 17.0.0.0/8
-#   (UDP 3478-3497, 16384-16387) — xem khối IP-CIDR bên dưới.
+#   FaceTime/iMessage signalling only; App Store, iCloud and CDNs (mzstatic,
+#   aaplimg) stay direct for speed. FaceTime's media relays sit in 17.0.0.0/8
+#   (UDP 3478-3497, 16384-16387) — see the IP-CIDR block below.
 DOMAIN-SUFFIX,facetime.apple.com,PROXY
 DOMAIN-SUFFIX,ess.apple.com,PROXY
 DOMAIN-SUFFIX,ids.apple.com,PROXY
@@ -60,7 +57,7 @@ DOMAIN-SUFFIX,viber.com,PROXY
 DOMAIN-SUFFIX,viber.net,PROXY
 DOMAIN-KEYWORD,viber,PROXY
 
-# ---------------------------- Zalo (chat/gọi/media) ------------------------
+# ---------------------------- Zalo (chat / calls / media) -----------------
 DOMAIN-SUFFIX,zalo.me,PROXY
 DOMAIN-SUFFIX,zaloapp.com,PROXY
 DOMAIN-SUFFIX,zadn.vn,PROXY
@@ -74,7 +71,7 @@ DOMAIN-SUFFIX,cscvdlz.com,PROXY
 DOMAIN-SUFFIX,social-dl.com,PROXY
 DOMAIN-SUFFIX,social-dl-z.com,PROXY
 
-# ---------------------------- Telegram (chỉ cuộc gọi bị chặn) --------------
+# ---------------------------- Telegram (only calls are blocked) -----------
 DOMAIN-SUFFIX,telegram.org,PROXY
 DOMAIN-SUFFIX,telegram.me,PROXY
 DOMAIN-SUFFIX,t.me,PROXY
@@ -89,17 +86,17 @@ DOMAIN-SUFFIX,signal.org,PROXY
 DOMAIN-SUFFIX,signal.art,PROXY
 DOMAIN-SUFFIX,whispersystems.org,PROXY
 
-# ---------------------------- Discord (web mở, OONI AE 4444/4633 OK; chỉ voice bị chặn) ---
+# ---------------------------- Discord (web opens, OONI AE 4444/4633 OK; only voice is blocked) ---
 DOMAIN-SUFFIX,discord.com,PROXY
 DOMAIN-SUFFIX,discordapp.com,PROXY
 DOMAIN-SUFFIX,discordapp.net,PROXY
 DOMAIN-SUFFIX,discord.gg,PROXY
 DOMAIN-SUFFIX,discord.media,PROXY
 
-# ---------------------------- imo (web bị chặn trên du 12/09/2026) ---------
+# ---------------------------- imo (web blocked on du, 2026-09-12) ---------
 DOMAIN-SUFFIX,imo.im,PROXY
 
-# ---------------------------- Snapchat (gọi) -------------------------------
+# ---------------------------- Snapchat (calls) ----------------------------
 DOMAIN-SUFFIX,snapchat.com,PROXY
 DOMAIN-SUFFIX,sc-cdn.net,PROXY
 DOMAIN-SUFFIX,sc-prod.net,PROXY
@@ -121,7 +118,7 @@ DOMAIN-SUFFIX,qlogo.cn,PROXY
 DOMAIN-KEYWORD,wechat,PROXY
 
 # ----------------------------------------------------------------------------
-#  IP-CIDR SERVER MEDIA (RTP/STUN/TURN) — BẮT BUỘC để cuộc gọi không rớt
+#  MEDIA SERVER IP-CIDR (RTP/STUN/TURN) — REQUIRED or calls drop
 # ----------------------------------------------------------------------------
 # --- Meta / AS32934 (WhatsApp, Messenger, Instagram) — BGP 09/2026 ---
 IP-CIDR,31.13.24.0/21,PROXY,no-resolve
@@ -147,10 +144,10 @@ IP-CIDR,185.89.216.0/22,PROXY,no-resolve
 IP-CIDR,204.15.20.0/22,PROXY,no-resolve
 IP-CIDR6,2a03:2880::/32,PROXY,no-resolve
 IP-CIDR6,2620:0:1c00::/40,PROXY,no-resolve
-# --- Apple (FaceTime/iMessage relay + APNs) — cả 17.0.0.0/8 là của Apple.
-#     Nếu thấy App Store/iCloud chậm, có thể bỏ dòng này (FaceTime vẫn cần nó). ---
+# --- Apple (FaceTime/iMessage relay + APNs) — all of 17.0.0.0/8 is Apple's.
+#     If App Store / iCloud feel slow you may drop this line (FaceTime still needs it). ---
 IP-CIDR,17.0.0.0/8,PROXY,no-resolve
-# --- Telegram (cuộc gọi nối datacenter/reflector bằng IP) — BGP 09/2026 ---
+# --- Telegram (calls reach datacenters / reflectors by IP) — BGP 09/2026 ---
 IP-CIDR,91.105.192.0/23,PROXY,no-resolve
 IP-CIDR,91.108.4.0/22,PROXY,no-resolve
 IP-CIDR,91.108.8.0/22,PROXY,no-resolve
@@ -166,7 +163,7 @@ IP-CIDR6,2001:b28:f23c::/48,PROXY,no-resolve
 IP-CIDR6,2001:b28:f23d::/48,PROXY,no-resolve
 IP-CIDR6,2001:b28:f23f::/48,PROXY,no-resolve
 IP-CIDR6,2a0a:f280::/32,PROXY,no-resolve
-# --- VNG / AS38244 (Zalo: server chat, media và TURN cho cuộc gọi) — BGP 09/2026 ---
+# --- VNG / AS38244 (Zalo: chat servers, media and call TURN) — BGP 09/2026 ---
 IP-CIDR,45.127.252.0/22,PROXY,no-resolve
 IP-CIDR,49.213.64.0/18,PROXY,no-resolve
 IP-CIDR,58.84.0.0/22,PROXY,no-resolve
@@ -181,10 +178,10 @@ IP-CIDR6,2001:df0:1a::/48,PROXY,no-resolve
 IP-CIDR6,2402:4e0::/32,PROXY,no-resolve
 
 # ============================================================================
-#  NHÓM 2 — SITE TDRA CHẶN HẲN (kiểm chứng du + Etisalat 12/09/2026:
-#  TLS handshake timeout / ECONNRESET / DNS timeout trên cả hai mạng)
+#  GROUP 2 — SITES TDRA BLOCKS OUTRIGHT (verified from du + Etisalat 2026-09-12:
+#  TLS handshake timeout / ECONNRESET / DNS timeout on both networks)
 # ============================================================================
-# --- Người lớn ---
+# --- Adult ---
 DOMAIN-SUFFIX,pornhub.com,PROXY
 DOMAIN-SUFFIX,pornhubpremium.com,PROXY
 DOMAIN-SUFFIX,xvideos.com,PROXY
@@ -197,7 +194,7 @@ DOMAIN-SUFFIX,chaturbate.com,PROXY
 DOMAIN-SUFFIX,stripchat.com,PROXY
 DOMAIN-SUFFIX,livejasmin.com,PROXY
 DOMAIN-SUFFIX,onlyfans.com,PROXY
-# --- Cờ bạc / cá cược (fun88, w88 mở bình thường -> không đưa vào) ---
+# --- Gambling / betting (fun88, w88 open normally -> not added) ---
 DOMAIN-SUFFIX,bet365.com,PROXY
 DOMAIN-SUFFIX,888.com,PROXY
 DOMAIN-SUFFIX,pokerstars.com,PROXY
@@ -205,28 +202,28 @@ DOMAIN-SUFFIX,1xbet.com,PROXY
 DOMAIN-SUFFIX,betway.com,PROXY
 DOMAIN-SUFFIX,m88.com,PROXY
 DOMAIN-SUFFIX,dafabet.com,PROXY
-# --- Hẹn hò (tinder chỉ chặn trên Etisalat; hinge mở) ---
+# --- Dating (tinder blocked on Etisalat only; hinge opens) ---
 DOMAIN-SUFFIX,tinder.com,PROXY
 DOMAIN-SUFFIX,gotinder.com,PROXY
 DOMAIN-SUFFIX,badoo.com,PROXY
 DOMAIN-SUFFIX,bumble.com,PROXY
 DOMAIN-SUFFIX,okcupid.com,PROXY
 DOMAIN-SUFFIX,grindr.com,PROXY
-# --- Nhà cung cấp VPN (trang web + app store của họ) ---
-#     proton.me (Proton Mail) KHÔNG bị chặn: OONI AE 01–09/2026 proton.me 424/426,
-#     mail.proton.me 315/315 OK -> bỏ; chỉ protonvpn.com bị chặn (76/89 lỗi).
+# --- VPN providers (their websites + app downloads) ---
+#     proton.me (Proton Mail) is NOT blocked: OONI AE 01-09/2026 proton.me 424/426,
+#     mail.proton.me 315/315 OK -> dropped; only protonvpn.com is blocked (76/89 failures).
 DOMAIN-SUFFIX,nordvpn.com,PROXY
 DOMAIN-SUFFIX,protonvpn.com,PROXY
 DOMAIN-SUFFIX,expressvpn.com,PROXY
 DOMAIN-SUFFIX,surfshark.com,PROXY
 DOMAIN-SUFFIX,windscribe.com,PROXY
 DOMAIN-SUFFIX,mullvad.net,PROXY
-# --- Báo chí ---
+# --- Press ---
 DOMAIN-SUFFIX,middleeasteye.net,PROXY
 
 # ============================================================================
-#  NHÓM 3 — DNS CÔNG CỘNG (Etisalat chặn cả ở tầng DNS: tra cứu bị timeout;
-#  ép DNS/DoH tới Google & Cloudflare đi qua proxy để khỏi bị nhiễm)
+#  GROUP 3 — PUBLIC DNS (Etisalat also blocks at the DNS layer: lookups time out;
+#  send DNS/DoH to Google & Cloudflare through the proxy so it is not poisoned)
 # ============================================================================
 DOMAIN-SUFFIX,cloudflare-dns.com,PROXY
 DOMAIN,one.one.one.one,PROXY
@@ -236,13 +233,13 @@ IP-CIDR,1.1.1.1/32,PROXY,no-resolve
 IP-CIDR,1.0.0.1/32,PROXY,no-resolve
 
 # ============================================================================
-#  ĐÃ BỎ (kiểm chứng 12/09/2026 từ du + Etisalat: mở bình thường, cho đi
-#  proxy chỉ làm chậm): google.com, youtube.com, googlevideo.com, netflix.com,
+#  LEFT OUT (verified 2026-09-12 from du + Etisalat: open normally, proxying
+#  them only slows things down): google.com, youtube.com, googlevideo.com, netflix.com,
 #  x.com/twitter.com, tiktok.com, threads.net, teams.microsoft.com,
 #  meet.google.com, zoom.us, skype.com, wikipedia.org, reddit.com, twitch.tv,
-#  aljazeera.com, bbc.com, ynet.co.il (Israel đã bỏ chặn), archive.org,
-#  binance.com, proton.me (mail; bỏ 13/09/2026 theo OONI); và cả nhóm CDN
-#  akamai/cloudfront/amazonaws/cloudflare/fastly
-#  (đẩy nửa Internet qua proxy, kể cả site UAE). Muốn mọi thứ qua VPN: dùng
-#  link config &final=proxy hoặc Định tuyến toàn cục = Proxy.
+#  aljazeera.com, bbc.com, ynet.co.il (Israel unblocked), archive.org,
+#  binance.com, proton.me (mail; dropped 2026-09-13 per OONI); and the whole
+#  akamai/cloudfront/amazonaws/cloudflare/fastly CDN group
+#  (it would push half the Internet through the proxy, UAE sites included).
+#  Want everything through the VPN? Use a full-tunnel config or global routing = Proxy.
 # ============================================================================

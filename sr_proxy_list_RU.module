@@ -1,45 +1,45 @@
 #!name=Russia RKN Bypass (TSPU) 2026
-#!desc=Vượt TSPU/Roskomnadzor ở Nga (bản 13/09/2026, đối chiếu tài liệu + đo TCP từ 7 mạng RU, chưa kiểm chứng trên 4G tại chỗ): (1) OTT nhắn tin/gọi bị chặn hẳn (WhatsApp, Viber, Signal, Discord, FaceTime, Snapchat, Threema) hoặc bóp (Telegram ~80% từ 03/2026, gọi Telegram tắt từ 08/2025) kèm IP-CIDR server media; (2) Meta/X/LinkedIn/Twitch/TikTok; (3) YouTube (chặn hẳn từ 02/2026) + streaming đã rút khỏi Nga; (4) báo chí bị chặn; (5) VPN/privacy; (6) AI/dev/cloud; (7) hosting nước ngoài & Cloudflare bị bóp 16 KB (từ 06/2025, còn hiệu lực 07/2026); (8) DNS công cộng. Dòng có "# chưa xác minh" = chưa có nguồn 2026 độc lập.
+#!desc=Gets past TSPU / Roskomnadzor in Russia (2026-09-13 edition, from published sources + TCP measurements from 7 Russian networks, not yet verified on mobile on the ground): (1) OTT messaging/calls blocked outright (WhatsApp, Viber, Signal, Discord, FaceTime, Snapchat, Threema) or throttled (Telegram ~80% since 03/2026, Telegram calls off since 08/2025), with IP-CIDR for their media servers; (2) Meta/X/LinkedIn/Twitch/TikTok; (3) YouTube (blocked outright since 02/2026) + streaming services that left Russia; (4) blocked press; (5) VPN / privacy; (6) AI / dev / cloud; (7) foreign hosting & Cloudflare throttled at 16 KB (since 06/2025, still in force 07/2026); (8) public DNS. Lines marked "# unverified" have no independent 2026 source yet.
 #!homepage=https://github.com/kulinh/gfw-vnm
 
 # ============================================================================
-#  HƯỚNG DẪN (BLACKLIST MODE — cho khi ở Nga)
-#  1) Cài đặt > Module: thêm module này.
-#  2) Trong config (.conf), phần [Rule] dòng CUỐI CÙNG đặt:  FINAL,DIRECT
-#     => Các domain/IP dưới đây đi PROXY, phần còn lại (Yandex, VK, Sber,
-#     Gosuslugi, Ozon...) đi thẳng. Rất quan trọng: app ngân hàng/dịch vụ Nga
-#     đi qua VPN sẽ bị đánh dấu và có thể kéo theo chặn IP node (Xeovo 08/2026).
-#  3) Nếu mạng di động rơi vào chế độ "white list" (chỉ ~57+ dịch vụ Nga được
-#     mở, các đợt cắt mobile 2025-2026) thì KHÔNG rule nào cứu được: chỉ còn
-#     Wi-Fi cố định hoặc chờ hết đợt cắt.
-#  4) Với panel cf-vpn: config RWL-RU (…/sub/<token>/RWL-RU.conf hoặc
-#     &rules=ru) nhúng sẵn module này, không cần nạp tay.
-#  Lưu ý kỹ thuật (ntc.party / habr 06/2026): TSPU đóng băng kết nối TLS tới
-#  IP hosting nước ngoài sau ~16 KB (25 gói) và khi >3 handshake song song tới
-#  cùng SNI; nên ưu tiên route VLESS-REALITY (SNI hợp lệ, uTLS firefox/random),
-#  bật mux; HY2/QUIC bị chặn hẳn trên Tele2, lọc trên MegaFon/Beeline.
-#  Nguồn đối chiếu (09/2026): itdoginfo/allow-domains (Russia/inside-raw),
-#  express.ms bảng messenger 04/2026, zona.media 04/2026, Cloudflare blog
-#  (cập nhật 07/2026), ntc.party threads 16061/17013/20340/23843, MacRumors
+#  HOW TO USE (blacklist mode, while in Russia)
+#  1) Settings > Modules: add this module.
+#  2) In your config (.conf) the LAST line of [Rule] must be:  FINAL,DIRECT
+#     => the domains/IPs below go through PROXY, everything else (Yandex, VK, Sber,
+#     Gosuslugi, Ozon...) goes direct. Important: Russian bank/government apps
+#     reached through a VPN get flagged and can get the node's IP blocked (Xeovo 08/2026).
+#  3) If mobile data falls into "white list" mode (only ~57+ Russian services
+#     reachable, the 2025-2026 mobile shutdowns), NO rule can help: only fixed
+#     Wi-Fi works, or wait for the shutdown to end.
+#  4) cf-vpn panel: the RWL-RU config (.../sub/<token>/RWL-RU.conf or
+#     &rules=ru) already inlines this module, no need to add it by hand.
+#  Technical notes (ntc.party / habr 06/2026): TSPU freezes TLS connections to
+#  foreign hosting IPs after ~16 KB (25 packets) and when >3 parallel handshakes go to
+#  the same SNI; prefer VLESS-REALITY routes (valid SNI, uTLS firefox/random),
+#  enable mux; HY2/QUIC is blocked outright on Tele2 and filtered on MegaFon/Beeline.
+#  Sources (09/2026): itdoginfo/allow-domains (Russia/inside-raw),
+#  express.ms messenger table 04/2026, zona.media 04/2026, Cloudflare blog
+#  (updated 07/2026), ntc.party threads 16061/17013/20340/23843, MacRumors
 #  (FaceTime 12/2025), The Record (Speedtest 07/2025, Roblox 12/2025), BGP
-#  AS32934/AS62014.. lấy lại từ sr_proxy_list_UAE (09/2026); IP Cloudflare từ
-#  cloudflare.com/ips-v4 (13/09/2026).
+#  AS32934/AS62014.. reused from sr_proxy_list_UAE (09/2026); Cloudflare IPs from
+#  cloudflare.com/ips-v4 (2026-09-13).
 # ============================================================================
 
 [Rule]
 
 # ============================================================================
-#  NHÓM 1 — OTT NHẮN TIN / GỌI THOẠI & VIDEO
+#  GROUP 1 — OTT MESSAGING / VOICE & VIDEO CALLS
 # ============================================================================
 
-# ---------------------------- WhatsApp (chặn hẳn 11-12/02/2026) ------------
+# ---------------------------- WhatsApp (blocked outright 11-12/02/2026) ---
 DOMAIN-SUFFIX,whatsapp.com,PROXY
 DOMAIN-SUFFIX,whatsapp.net,PROXY
 DOMAIN-SUFFIX,whatsapp.biz,PROXY
 DOMAIN-SUFFIX,wa.me,PROXY
 
 # ---------------------------- Facebook / Messenger / Instagram / Threads ---
-#   Meta bị coi là "cực đoan" từ 03/2022; Messenger & Instagram Direct chặn.
+#   Meta labelled "extremist" since 03/2022; Messenger & Instagram Direct blocked.
 DOMAIN-SUFFIX,facebook.com,PROXY
 DOMAIN-SUFFIX,facebook.net,PROXY
 DOMAIN-SUFFIX,fb.com,PROXY
@@ -55,19 +55,19 @@ DOMAIN-SUFFIX,threads.com,PROXY
 DOMAIN-SUFFIX,meta.com,PROXY
 DOMAIN-SUFFIX,oculus.com,PROXY
 
-# ---------------------------- FaceTime / iMessage (chặn 12/2025) -----------
-#   Chỉ signaling; App Store/iCloud đi thẳng. Media relay nằm trong 17.0.0.0/8.
+# ---------------------------- FaceTime / iMessage (blocked 12/2025) -------
+#   Signalling only; App Store / iCloud stay direct. Media relays are in 17.0.0.0/8.
 DOMAIN-SUFFIX,facetime.apple.com,PROXY
 DOMAIN-SUFFIX,ess.apple.com,PROXY
 DOMAIN-SUFFIX,ids.apple.com,PROXY
 DOMAIN-SUFFIX,push.apple.com,PROXY
 
-# ---------------------------- Viber (chặn 13/12/2024) ----------------------
+# ---------------------------- Viber (blocked 2024-12-13) ------------------
 DOMAIN-SUFFIX,viber.com,PROXY
 DOMAIN-SUFFIX,viber.net,PROXY
 DOMAIN-KEYWORD,viber,PROXY
 
-# ---------------------------- Telegram (bóp ~80% từ 03/2026; gọi tắt 08/2025)
+# ---------------------------- Telegram (throttled ~80% since 03/2026; calls off 08/2025)
 DOMAIN-SUFFIX,telegram.org,PROXY
 DOMAIN-SUFFIX,telegram.me,PROXY
 DOMAIN-SUFFIX,t.me,PROXY
@@ -77,12 +77,12 @@ DOMAIN-SUFFIX,telesco.pe,PROXY
 DOMAIN-SUFFIX,cdn-telegram.org,PROXY
 DOMAIN-KEYWORD,telegram,PROXY
 
-# ---------------------------- Signal (chặn 08/2024) ------------------------
+# ---------------------------- Signal (blocked 08/2024) --------------------
 DOMAIN-SUFFIX,signal.org,PROXY
 DOMAIN-SUFFIX,signal.art,PROXY
 DOMAIN-SUFFIX,whispersystems.org,PROXY
 
-# ---------------------------- Discord (chặn 08/10/2024) --------------------
+# ---------------------------- Discord (blocked 2024-10-08) ----------------
 DOMAIN-SUFFIX,discord.com,PROXY
 DOMAIN-SUFFIX,discordapp.com,PROXY
 DOMAIN-SUFFIX,discordapp.net,PROXY
@@ -93,7 +93,7 @@ DOMAIN-SUFFIX,discord.dev,PROXY
 DOMAIN-SUFFIX,discordsays.com,PROXY
 DOMAIN-SUFFIX,dis.gd,PROXY
 
-# ---------------------------- Snapchat (chặn 10/2025) ----------------------
+# ---------------------------- Snapchat (blocked 10/2025) ------------------
 DOMAIN-SUFFIX,snapchat.com,PROXY
 DOMAIN-SUFFIX,sc-cdn.net,PROXY
 DOMAIN-SUFFIX,sc-prod.net,PROXY
@@ -103,25 +103,25 @@ DOMAIN-SUFFIX,sc-static.net,PROXY
 DOMAIN-SUFFIX,threema.ch,PROXY
 DOMAIN-SUFFIX,simplex.chat,PROXY
 DOMAIN-SUFFIX,simplex.im,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,matrix.org,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,element.io,PROXY
 
-# ---------------------------- Zalo (không có nguồn chặn; giữ để gọi ổn định)
-#   Zalo không nằm trong danh sách RKN, nhưng gọi thoại nối VNG bằng IP có thể
-#   dính bóp 16 KB / lọc UDP; bật nếu gọi Zalo rớt.
-# chưa xác minh
+# ---------------------------- Zalo (no blocking source; kept for stable calls)
+#   Zalo is not on the RKN list, but voice calls reach VNG by IP and can hit the
+#   16 KB throttle / UDP filtering; keep it if Zalo calls drop.
+# unverified
 DOMAIN-SUFFIX,zalo.me,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,zaloapp.com,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,zadn.vn,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,zdn.vn,PROXY
 
 # ----------------------------------------------------------------------------
-#  IP-CIDR SERVER MEDIA (RTP/STUN/TURN) — BẮT BUỘC để cuộc gọi không rớt
+#  MEDIA SERVER IP-CIDR (RTP/STUN/TURN) — REQUIRED or calls drop
 # ----------------------------------------------------------------------------
 # --- Meta / AS32934 (WhatsApp, Messenger, Instagram) — BGP 09/2026 ---
 IP-CIDR,31.13.24.0/21,PROXY,no-resolve
@@ -147,9 +147,9 @@ IP-CIDR,185.89.216.0/22,PROXY,no-resolve
 IP-CIDR,204.15.20.0/22,PROXY,no-resolve
 IP-CIDR6,2a03:2880::/32,PROXY,no-resolve
 IP-CIDR6,2620:0:1c00::/40,PROXY,no-resolve
-# --- Apple 17.0.0.0/8 (FaceTime/iMessage relay + APNs). Bỏ nếu App Store chậm ---
+# --- Apple 17.0.0.0/8 (FaceTime/iMessage relay + APNs). Drop it if the App Store feels slow ---
 IP-CIDR,17.0.0.0/8,PROXY,no-resolve
-# --- Telegram (RKN bóp theo IP datacenter) — BGP 09/2026 ---
+# --- Telegram (RKN throttles by datacenter IP) — BGP 09/2026 ---
 IP-CIDR,91.105.192.0/23,PROXY,no-resolve
 IP-CIDR,91.108.4.0/22,PROXY,no-resolve
 IP-CIDR,91.108.8.0/22,PROXY,no-resolve
@@ -167,10 +167,10 @@ IP-CIDR6,2001:b28:f23f::/48,PROXY,no-resolve
 IP-CIDR6,2a0a:f280::/32,PROXY,no-resolve
 
 # ============================================================================
-#  NHÓM 2 — MẠNG XÃ HỘI / VIDEO
+#  GROUP 2 — SOCIAL NETWORKS / VIDEO
 # ============================================================================
 
-# ---------------------------- X / Twitter (chặn 03/2022) -------------------
+# ---------------------------- X / Twitter (blocked 03/2022) ---------------
 DOMAIN-SUFFIX,x.com,PROXY
 DOMAIN-SUFFIX,twitter.com,PROXY
 DOMAIN-SUFFIX,twimg.com,PROXY
@@ -181,8 +181,8 @@ DOMAIN-SUFFIX,pscp.tv,PROXY
 DOMAIN-SUFFIX,x.ai,PROXY
 DOMAIN-SUFFIX,grok.com,PROXY
 
-# ---------------------------- YouTube (bóp 2024-25, chặn hẳn 12/02/2026) ---
-#   Không đưa cả google.com: Search/Gmail/Maps/Play vẫn mở ở Nga (zona.media).
+# ---------------------------- YouTube (throttled 2024-25, blocked outright 2026-02-12) ---
+#   google.com as a whole is NOT added: Search/Gmail/Maps/Play still open in Russia (zona.media).
 DOMAIN-SUFFIX,youtube.com,PROXY
 DOMAIN-SUFFIX,youtu.be,PROXY
 DOMAIN-SUFFIX,yt.be,PROXY
@@ -203,7 +203,7 @@ DOMAIN-SUFFIX,yt-video-upload.l.google.com,PROXY
 DOMAIN-SUFFIX,ytimg.l.google.com,PROXY
 DOMAIN-SUFFIX,returnyoutubedislikeapi.com,PROXY
 
-# ---------------------------- TikTok (hạn chế; dính bóp Cloudflare 06/2025) -
+# ---------------------------- TikTok (restricted; hit by the Cloudflare throttle 06/2025) -
 DOMAIN-SUFFIX,tiktok.com,PROXY
 DOMAIN-SUFFIX,tiktokcdn.com,PROXY
 DOMAIN-SUFFIX,tiktokcdn-eu.com,PROXY
@@ -217,12 +217,12 @@ DOMAIN-SUFFIX,ibytedtos.com,PROXY
 DOMAIN-SUFFIX,byteoversea.com,PROXY
 DOMAIN-SUFFIX,muscdn.com,PROXY
 
-# ---------------------------- LinkedIn (chặn 2016) / Twitch / Patreon ------
+# ---------------------------- LinkedIn (blocked 2016) / Twitch / Patreon --
 DOMAIN-SUFFIX,linkedin.com,PROXY
 DOMAIN-SUFFIX,licdn.com,PROXY
 DOMAIN-SUFFIX,twitch.tv,PROXY
 DOMAIN-SUFFIX,ttvnw.net,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,jtvnw.net,PROXY
 DOMAIN-SUFFIX,patreon.com,PROXY
 DOMAIN-SUFFIX,patreonusercontent.com,PROXY
@@ -235,7 +235,7 @@ DOMAIN-SUFFIX,soundcloud.com,PROXY
 DOMAIN-SUFFIX,sndcdn.com,PROXY
 DOMAIN-SUFFIX,last.fm,PROXY
 
-# ---------------------------- Streaming đã rút khỏi Nga / bị chặn -----------
+# ---------------------------- Streaming that left Russia / blocked --------
 DOMAIN-SUFFIX,netflix.com,PROXY
 DOMAIN-SUFFIX,netflix.net,PROXY
 DOMAIN-SUFFIX,nflxvideo.net,PROXY
@@ -262,11 +262,11 @@ DOMAIN-SUFFIX,brawlstarsgame.com,PROXY
 DOMAIN-SUFFIX,geforcenow.com,PROXY
 DOMAIN-SUFFIX,itch.io,PROXY
 DOMAIN-SUFFIX,modrinth.com,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,steamstat.info,PROXY
 
 # ============================================================================
-#  NHÓM 3 — BÁO CHÍ / TỔ CHỨC BỊ RKN CHẶN
+#  GROUP 3 — PRESS / ORGANISATIONS BLOCKED BY RKN
 # ============================================================================
 DOMAIN-SUFFIX,bbc.com,PROXY
 DOMAIN-SUFFIX,bbc.co.uk,PROXY
@@ -298,7 +298,7 @@ DOMAIN-SUFFIX,holod.media,PROXY
 DOMAIN-SUFFIX,ovd.info,PROXY
 DOMAIN-SUFFIX,ovdinfo.org,PROXY
 DOMAIN-SUFFIX,navalny.com,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,fbk.info,PROXY
 DOMAIN-SUFFIX,carnegieendowment.org,PROXY
 DOMAIN-SUFFIX,politico.eu,PROXY
@@ -336,7 +336,7 @@ DOMAIN-SUFFIX,thepiratebay.org,PROXY
 DOMAIN-SUFFIX,1337x.to,PROXY
 
 # ============================================================================
-#  NHÓM 4 — VPN / PRIVACY / EMAIL MÃ HOÁ (469 dịch vụ VPN bị RKN chặn 03/2026)
+#  GROUP 4 — VPN / PRIVACY / ENCRYPTED EMAIL (469 VPN services blocked by RKN 03/2026)
 # ============================================================================
 DOMAIN-SUFFIX,proton.me,PROXY
 DOMAIN-SUFFIX,protonvpn.com,PROXY
@@ -348,7 +348,7 @@ DOMAIN-SUFFIX,surfshark.com,PROXY
 DOMAIN-SUFFIX,expressvpn.com,PROXY
 DOMAIN-SUFFIX,mullvad.net,PROXY
 DOMAIN-SUFFIX,cyberghostvpn.com,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,windscribe.com,PROXY
 DOMAIN-SUFFIX,adguard-vpn.com,PROXY
 DOMAIN-SUFFIX,adguard.com,PROXY
@@ -363,7 +363,7 @@ DOMAIN-SUFFIX,vpngate.net,PROXY
 DOMAIN-SUFFIX,redshieldvpn.com,PROXY
 DOMAIN-SUFFIX,dpidetector.org,PROXY
 DOMAIN-SUFFIX,censortracker.org,PROXY
-# chưa xác minh (WARP: RKN cấm 12/2021)
+# unverified (WARP: banned by RKN 12/2021)
 DOMAIN-SUFFIX,cloudflareclient.com,PROXY
 DOMAIN-SUFFIX,cloudflare-dns.com,PROXY
 DOMAIN-SUFFIX,tuta.com,PROXY
@@ -378,7 +378,7 @@ DOMAIN-SUFFIX,startpage.com,PROXY
 DOMAIN-SUFFIX,qwant.com,PROXY
 
 # ============================================================================
-#  NHÓM 5 — AI / DEV / SaaS (chặn theo yêu cầu RKN hoặc tự chặn IP Nga)
+#  GROUP 5 — AI / DEV / SaaS (blocked on RKN orders or self-blocking Russian IPs)
 # ============================================================================
 DOMAIN-SUFFIX,openai.com,PROXY
 DOMAIN-SUFFIX,chatgpt.com,PROXY
@@ -398,7 +398,7 @@ DOMAIN-SUFFIX,cursorapi.com,PROXY
 DOMAIN-SUFFIX,windsurf.com,PROXY
 DOMAIN-SUFFIX,codeium.com,PROXY
 DOMAIN-SUFFIX,jetbrains.com,PROXY
-# chưa xác minh (chỉ api.jetbrains.ai có trong list)
+# unverified (only api.jetbrains.ai is on the list)
 DOMAIN-SUFFIX,jetbrains.ai,PROXY
 DOMAIN,copilot.microsoft.com,PROXY
 DOMAIN-SUFFIX,notion.so,PROXY
@@ -443,23 +443,23 @@ DOMAIN-SUFFIX,mega.nz,PROXY
 DOMAIN-SUFFIX,wetransfer.com,PROXY
 DOMAIN-SUFFIX,gofile.io,PROXY
 DOMAIN-SUFFIX,speedtest.net,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,ooklaserver.net,PROXY
 DOMAIN-SUFFIX,fast.com,PROXY
 
 # ============================================================================
-#  NHÓM 6 — CLOUDFLARE & HOSTING NƯỚC NGOÀI (bóp 16 KB: Rostelecom, MegaFon,
-#  Vimpelcom, MTS, MGTS từ 09/06/2025; Cloudflare xác nhận còn hiệu lực 07/2026;
-#  ntc.party 04/2026: OVH/G-Core/CloudFront timeout, "8.*" CF được whitelist).
-#  Khối IP-CIDR này đẩy MỌI site sau Cloudflare qua proxy (nặng, nhưng đúng
-#  triệu chứng "trang load một nửa rồi đứng"). Node JPY-01 HTTPUpgrade/Naive
-#  không bị ảnh hưởng vì traffic của chính proxy không đi qua rule.
-#  Nguồn: cloudflare.com/ips-v4 (13/09/2026).
+#  GROUP 6 — CLOUDFLARE & FOREIGN HOSTING (16 KB throttle: Rostelecom, MegaFon,
+#  Vimpelcom, MTS, MGTS since 2025-06-09; Cloudflare confirmed still in force 07/2026;
+#  ntc.party 04/2026: OVH/G-Core/CloudFront time out, "8.*" CF ranges whitelisted).
+#  This IP-CIDR block sends EVERY site behind Cloudflare through the proxy (heavy, but
+#  it matches the "page loads halfway then stalls" symptom). The proxy's own
+#  traffic is not affected: rules never apply to the connection to the proxy itself.
+#  Source: cloudflare.com/ips-v4 (2026-09-13).
 # ============================================================================
 DOMAIN-SUFFIX,pages.dev,PROXY
-# chưa xác minh
+# unverified
 DOMAIN-SUFFIX,workers.dev,PROXY
-# chưa xác minh (ntc.party 04/2026: subdomain bị chặn)
+# unverified (ntc.party 04/2026: subdomains blocked)
 DOMAIN-SUFFIX,cloudfront.net,PROXY
 IP-CIDR,173.245.48.0/20,PROXY,no-resolve
 IP-CIDR,103.21.244.0/22,PROXY,no-resolve
@@ -476,12 +476,12 @@ IP-CIDR,104.16.0.0/13,PROXY,no-resolve
 IP-CIDR,104.24.0.0/14,PROXY,no-resolve
 IP-CIDR,172.64.0.0/13,PROXY,no-resolve
 IP-CIDR,131.0.72.0/22,PROXY,no-resolve
-# --- Hetzner / DigitalOcean / OVH: bị bóp 16 KB theo ASN nhưng dải quá rộng
-#     để liệt kê; nếu cần thì dùng runetfreedom/russia-blocked-geoip (srs). ---
+# --- Hetzner / DigitalOcean / OVH: throttled at 16 KB by ASN but the ranges are too wide
+#     to list; if needed use runetfreedom/russia-blocked-geoip (srs). ---
 
 # ============================================================================
-#  NHÓM 7 — DNS CÔNG CỘNG (zona.media 04/2026: 1.1.1.1 & 8.8.8.8 chưa bị chặn,
-#  nhưng ISP Nga trả DNS giả cho domain bị chặn -> ép DoH đi proxy)
+#  GROUP 7 — PUBLIC DNS (zona.media 04/2026: 1.1.1.1 & 8.8.8.8 not blocked yet,
+#  but Russian ISPs return fake DNS answers for blocked domains -> force DoH via proxy)
 # ============================================================================
 DOMAIN,one.one.one.one,PROXY
 DOMAIN,dns.google,PROXY
@@ -489,14 +489,14 @@ IP-CIDR,8.8.8.0/24,PROXY,no-resolve
 IP-CIDR,8.8.4.0/24,PROXY,no-resolve
 IP-CIDR,1.1.1.1/32,PROXY,no-resolve
 IP-CIDR,1.0.0.1/32,PROXY,no-resolve
-# chưa xác minh
+# unverified
 IP-CIDR,9.9.9.9/32,PROXY,no-resolve
 
 # ============================================================================
-#  KHÔNG ĐƯA VÀO (mở bình thường ở Nga 09/2026, cho đi proxy chỉ làm chậm):
+#  LEFT OUT (open normally in Russia 09/2026; proxying them only slows things down):
 #  google.com (Search/Gmail/Maps/Play), apple.com/icloud.com, microsoft.com,
 #  teams.microsoft.com, zoom.us, meet.google.com, wikipedia.org, reddit.com,
 #  github.com, steam (steampowered.com), wechat, kakao, line, imo, viber web
-#  (app chặn nhưng web mở? # chưa xác minh), yandex/vk/mail.ru/sber/ozon.
-#  Muốn mọi thứ qua VPN: link config &final=proxy hoặc Định tuyến toàn cục.
+#  (app blocked but web open? # unverified), yandex/vk/mail.ru/sber/ozon.
+#  Want everything through the VPN? Use a full-tunnel config or global routing = Proxy.
 # ============================================================================

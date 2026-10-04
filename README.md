@@ -1,73 +1,63 @@
 # 🧱 GFW-VNM — Global Firewall Jumper
 
-> Bộ **rule vượt tường lửa quốc gia** cho người Việt ở nước ngoài: **Trung Quốc (GFW)**, **UAE (TDRA)**, **Nga (TSPU / Roskomnadzor)**. Chỉ những gì bị chặn mới đi qua proxy, mọi thứ còn lại đi thẳng — app trong nước và trang nội địa giữ nguyên tốc độ.
->
-> Tối ưu cho **Shadowrocket**, **sing-box** và **Hiddify**.
+**English** | [简体中文](README.zh-CN.md) | [Русский](README.ru.md)
 
-<p align="center">
-  <a href="https://github.com/kulinh/gfw-vnm/stargazers"><img src="https://img.shields.io/github/stars/kulinh/gfw-vnm?label=Stars&style=social"></a>
-  <a href="https://github.com/kulinh/gfw-vnm/network/members"><img src="https://img.shields.io/github/forks/kulinh/gfw-vnm?label=Fork&style=social"></a>
+Rule sets for getting past national firewalls — **China (GFW)**, **UAE (TDRA)** and **Russia (TSPU / Roskomnadzor)** — in **blacklist mode**: only what the firewall blocks goes through your proxy, everything else stays direct, so local apps, banks and domestic sites keep their full speed.
+
+Built for **Shadowrocket**, **sing-box** and **Hiddify**.
+
+<p>
+  <a href="https://github.com/kulinh/gfw-vnm/stargazers"><img src="https://img.shields.io/github/stars/kulinh/gfw-vnm?style=social" alt="Stars"></a>
+  <a href="https://github.com/kulinh/gfw-vnm/commits/master"><img src="https://img.shields.io/github/last-commit/kulinh/gfw-vnm" alt="Last commit"></a>
 </p>
 
----
+## Firewalls covered
 
-## 🌍 Tường lửa được hỗ trợ
-
-| Tường lửa | Nước | Bộ rule | Nội dung chính |
+| Firewall | Country | Rule set | What it opens |
 |---|---|---|---|
-| **GFW** (Great Firewall) | 🇨🇳 Trung Quốc | `sr_proxy_list_CN` | Google/YouTube, Meta (Facebook, Instagram, WhatsApp, Threads), Telegram, X, TikTok, LINE/Kakao/Naver, AI (ChatGPT, Claude, Gemini…), dev (GitHub raw, Docker, Hugging Face), streaming, báo chí quốc tế, crypto, kho APK; IP-CIDR đối chiếu BGP cho dịch vụ hay bị nhiễm DNS |
-| **TDRA** | 🇦🇪 UAE | `sr_proxy_list_UAE` | Cuộc gọi OTT (WhatsApp, FaceTime, Messenger, Viber, Zalo, Telegram, Signal, Discord…) + IP media relay; nhóm site TDRA chặn hẳn. Không proxy những gì vẫn mở ở UAE |
-| **TSPU / Roskomnadzor** | 🇷🇺 Nga | `sr_proxy_list_RU` | OTT bị chặn / bóp, Meta/X/LinkedIn/Twitch, YouTube & streaming đã rút khỏi Nga, báo chí, VPN/AI, dải hosting & Cloudflare bị bóp |
-| — | mọi nơi | `zalo_zalopay` | Toàn bộ Zalo / ZaloPay (domain + dải IP VNG AS38244) — dùng khi muốn ép Zalo qua proxy |
+| **GFW** (Great Firewall) | 🇨🇳 China | `sr_proxy_list_CN` | Google / YouTube, Meta (Facebook, Instagram, WhatsApp, Threads), Telegram, X, TikTok, LINE / Kakao / Naver, AI (ChatGPT, Claude, Gemini…), dev (GitHub raw, Docker, Hugging Face), streaming, international press, crypto, APK stores; IP-CIDR for services whose DNS gets poisoned |
+| **TDRA** | 🇦🇪 UAE | `sr_proxy_list_UAE` | Voice & video calls over OTT apps (WhatsApp, FaceTime, Messenger, Viber, Telegram, Signal, Discord…) with their media-server IP ranges; the site groups TDRA blocks outright. Nothing that already opens in the UAE |
+| **TSPU / Roskomnadzor** | 🇷🇺 Russia | `sr_proxy_list_RU` | Blocked or throttled OTT apps, Meta / X / LinkedIn / Twitch, YouTube and streaming that left Russia, blocked press, VPN / AI services, throttled foreign hosting and Cloudflare ranges |
 
-**Nguyên tắc:** chỉ đưa vào rule những gì **đo được là bị chặn từ bên trong** tường lửa (Globalping từ các nhà mạng nội địa, OONI, itdog…), có ghi ngày đo ngay trong file. Thứ vẫn mở (ví dụ cursor.com, PayPal, LinkedIn ở TQ) không cho đi proxy vì chỉ làm chậm.
+**How entries get in:** every domain is **measured as blocked from inside** the firewall (Globalping probes on the local carriers, OONI, itdog…), with the date and method noted next to it in the file. Sites that still open — cursor.com, PayPal or LinkedIn from China, for example — stay out: proxying them only slows them down.
 
----
+## Files per client
 
-## 📦 Định dạng theo app
+Every rule set ships in three formats, all generated from the same `.module` source:
 
-Mỗi bộ rule có sẵn ở ba định dạng, sinh từ cùng một nguồn (`.module`):
-
-| App | File | Cách dùng |
+| Client | File | Use it as |
 |---|---|---|
-| **Shadowrocket** | `<tên>.module` | Module (Cấu hình → Mô-đun) |
-| **Shadowrocket** | `<tên>.list` | `RULE-SET,<url>,PROXY` trong config |
-| **sing-box** | `sing-box/<tên>.srs` | `route.rule_set` kiểu `remote`, `format: binary` |
-| **Hiddify** | `sing-box/<tên>.srs` | Cài đặt → Routing → Route rules → *Rule set* = URL, outbound = proxy |
-| (đọc / chỉnh) | `sing-box/<tên>.json` | Bản nguồn của `.srs` (rule-set version 1, chạy trên sing-box ≥ 1.8) |
+| **Shadowrocket** | `<name>.module` | a module (Config → Modules) |
+| **Shadowrocket** | `<name>.list` | `RULE-SET,<url>,PROXY` in a config |
+| **sing-box** | `sing-box/<name>.srs` | a `remote` rule set, `format: binary` |
+| **Hiddify** | `sing-box/<name>.srs` | Settings → Routing → Route rules → *Rule set* |
+| *(to read / review)* | `sing-box/<name>.json` | source of the `.srs` (rule-set version 1, any sing-box ≥ 1.8) |
 
-Thay `<tên>` bằng `sr_proxy_list_CN`, `sr_proxy_list_UAE`, `sr_proxy_list_RU` hoặc `zalo_zalopay`. Link gốc:
+`<name>` is `sr_proxy_list_CN`, `sr_proxy_list_UAE` or `sr_proxy_list_RU`. Download from:
 
 ```
 https://raw.githubusercontent.com/kulinh/gfw-vnm/master/<file>
-https://cdn.jsdelivr.net/gh/kulinh/gfw-vnm@master/<file>      # mirror, có thể trễ vài giờ
+https://cdn.jsdelivr.net/gh/kulinh/gfw-vnm@master/<file>     # mirror, may lag a few hours
 ```
 
-> Ở **trong** Trung Quốc, `raw.githubusercontent.com` thường bị chặn: hãy tải/cập nhật rule khi đang bật proxy, hoặc dùng link jsDelivr.
+> Inside China `raw.githubusercontent.com` is usually blocked: refresh rules with the proxy on, or use the jsDelivr link.
 
----
+## Shadowrocket
 
-## 🚀 Shadowrocket
-
-1. **Config tối giản** — *Cấu hình → Tệp từ xa*, dán link rồi thêm máy chủ của bạn:
-   ```
-   https://raw.githubusercontent.com/kulinh/gfw-vnm/master/docs/03.shadowsocks_tiny.conf
-   ```
-   Phần `[Rule]` phải kết thúc bằng **`FINAL,DIRECT`** (blacklist mode).
-2. **Module** — *Cấu hình → Mô-đun → (+)*:
+1. Start from [`examples/shadowrocket.conf`](examples/shadowrocket.conf) (Config → add remote file) and add your servers. Its `[Rule]` section ends with **`FINAL,DIRECT`** — keep it that way.
+2. Config → Modules → **+**, add the one for where you are:
    - 🇨🇳 `https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_CN.module`
-   - 🇦🇪 `https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_UAE.module` (ở UAE **không** nạp `zalo_zalopay`)
+   - 🇦🇪 `https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_UAE.module`
    - 🇷🇺 `https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_RU.module`
-3. Bật config, *Định tuyến toàn cục* = **Cấu hình**. Khi repo cập nhật, chỉ cần **làm mới module**.
+3. Set global routing to **Config**. When the repo changes, just refresh the module.
 
-Muốn dùng RULE-SET thay module: thêm vào `[Rule]` (trước `FINAL,DIRECT`):
+Prefer RULE-SET? Put this before `FINAL,DIRECT`:
+
 ```
 RULE-SET,https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sr_proxy_list_CN.list,PROXY
 ```
 
-## 📦 sing-box
-
-Thêm rule set và một route rule đưa nó ra proxy; `route.final` để `direct`:
+## sing-box
 
 ```json
 {
@@ -91,75 +81,52 @@ Thêm rule set và một route rule đưa nó ra proxy; `route.final` để `dir
 }
 ```
 
-`http_client` (sing-box **≥ 1.14**): tải rule qua chính proxy — ở trong TQ không bị chặn GitHub, và hết cảnh báo *"implicit default HTTP client … deprecated"* mỗi lần khởi động. Không trỏ được vào outbound `direct` (sing-box báo lỗi). Với sing-box **≤ 1.13** bỏ dòng này (trường chưa tồn tại).
+`http_client` (sing-box **1.14+**) downloads the rule set through the proxy — so it works from inside China — and silences the *"implicit default HTTP client … deprecated"* warning on every start. It cannot point at a `direct` outbound (sing-box refuses). Remove the line on sing-box **1.13 and older**, where the field does not exist.
 
-## 🛡️ Hiddify
+## Hiddify
 
-*Cài đặt → Routing → Route rules → Thêm*: chọn **Rule set**, dán URL
-`https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sing-box/sr_proxy_list_CN.srs`, outbound = **Proxy**.
-Để phần còn lại đi thẳng, đặt chế độ định tuyến mặc định của Hiddify là *Direct* (hoặc thêm rule bypass tương ứng).
+Settings → Routing → Route rules → **Add**: type **Rule set**, URL
+`https://raw.githubusercontent.com/kulinh/gfw-vnm/master/sing-box/sr_proxy_list_CN.srs`, outbound **Proxy**. Leave the default route on *Direct* so everything else bypasses the proxy.
 
----
+## Contributing
 
-## 🔗 Dùng với cf-vpn
-
-Fleet **cf-vpn** sinh sẵn config cho cả ba app, đã **nhúng thẳng** rule của repo này (Worker tải module ở edge Cloudflare, nơi GitHub không bị chặn), nên **không cần** cài module:
-
-| Profile | Dùng khi | Rule |
-|---|---|---|
-| `RWL-CN` | ở Trung Quốc | `sr_proxy_list_CN` → proxy, còn lại thẳng |
-| `RWL-UAE` | ở UAE | `sr_proxy_list_UAE` |
-| `RWL-RU` | ở Nga | `sr_proxy_list_RU` |
-| `RWL-TOCN` | **ngoài** Trung Quốc | ngược lại: site TQ → proxy (node tối ưu cho TQ), còn lại thẳng |
-
-Sửa module ở đây → lần cập nhật config kế tiếp tự có, không cần deploy. Không đưa config cá nhân (chứa UUID/mật khẩu) hay địa chỉ node vào repo này — repo là danh sách chung, public.
-
----
-
-## 🛠️ Đóng góp / bảo trì
-
-1. Chỉ sửa file **`.module`** (nguồn duy nhất). Thêm domain **kèm dòng ghi chú ngày + cách đo** (ví dụ `# 0/6 node CN vào được, globalping 04/10/2026`).
-2. Sinh lại các định dạng khác (cần binary `sing-box` để biên dịch `.srs`):
+1. Edit only the **`.module`** files — they are the single source. Add a comment with the date and how the block was measured (e.g. `# 0/6 China probes, Globalping 2026-10-04`).
+2. Regenerate the other formats (needs a `sing-box` binary to compile `.srs`):
    ```bash
-   python3 tools/build.py            # ghi .list + sing-box/*.json + sing-box/*.srs
-   python3 tools/build.py --check    # chỉ kiểm tra lệch (chạy trước khi commit)
+   python3 tools/build.py            # writes *.list, sing-box/*.json, sing-box/*.srs
+   python3 tools/build.py --check    # fails if anything is stale — run before committing
    ```
-3. Commit cả `.module` lẫn file sinh ra.
+3. Commit the `.module` together with the generated files.
 
-Dòng `USER-AGENT` / `URL-REGEX` chỉ có hiệu lực trong Shadowrocket (sing-box không có loại rule tương đương).
+`USER-AGENT` / `URL-REGEX` lines only take effect in Shadowrocket; sing-box has no such rule types.
 
----
+## FAQ
 
-## ❓ Câu hỏi thường gặp
+**Everything works with global proxy, but not in rule mode?**
+Almost always a wrong `FINAL` (it must be `FINAL,DIRECT`) or a helper domain of the site that is missing from the list. Open an issue with the domain.
 
-**Bật proxy toàn cục thì vào được, bật theo rule thì không?**
-> Gần như luôn do `FINAL` sai (phải là `FINAL,DIRECT`) hoặc thiếu một domain phụ trợ của site. Báo domain đó để bổ sung.
+**A local banking app refuses to run with Shadowrocket on?**
+Settings → Proxy → change the proxy type from `HTTP` to `none` (TUN mode).
 
-**App ngân hàng / app nội địa báo lỗi khi bật Shadowrocket?**
-> *Cài đặt → Proxy*, đổi loại proxy từ `HTTP` sang `none` (chế độ TUN).
+**Ad blocking?**
+Out of scope. This repo only gets you past firewalls; block ads at the DNS layer (NextDNS, AdGuard DNS…).
 
-**Có chặn quảng cáo không?**
-> Không. Repo chỉ lo vượt tường lửa; chặn quảng cáo nên làm ở tầng DNS (NextDNS, AdGuard DNS…).
+**Do a few hundred rules slow the phone down?**
+No. Shadowrocket and sing-box match with hash / trie lookups, not by scanning the list.
 
-**Hàng trăm rule có làm chậm máy?**
-> Không đáng kể: cả Shadowrocket lẫn sing-box tra rule theo cấu trúc băm / cây, không duyệt tuần tự.
-
----
-
-## 📁 Cấu trúc
+## Layout
 
 ```
 gfw-vnm/
-├── sr_proxy_list_CN.module    # nguồn: GFW (Trung Quốc)
-├── sr_proxy_list_UAE.module   # nguồn: TDRA (UAE)
-├── sr_proxy_list_RU.module    # nguồn: TSPU (Nga)
-├── zalo_zalopay.module        # nguồn: Zalo / ZaloPay
-├── *.list                     # Shadowrocket RULE-SET (sinh tự động)
-├── sing-box/*.json, *.srs     # sing-box / Hiddify rule-set (sinh tự động)
-├── tools/build.py             # sinh mọi định dạng từ .module
-└── docs/                      # config mẫu + tài liệu Shadowrocket (tham khảo)
+├── sr_proxy_list_CN.module     # source: China (GFW)
+├── sr_proxy_list_UAE.module    # source: UAE (TDRA)
+├── sr_proxy_list_RU.module     # source: Russia (TSPU)
+├── *.list                      # Shadowrocket RULE-SET (generated)
+├── sing-box/*.json, *.srs      # sing-box / Hiddify rule sets (generated)
+├── examples/shadowrocket.conf  # minimal blacklist-mode config
+└── tools/build.py              # builds every format from the modules
 ```
 
----
+## Credits & license
 
-Khởi đầu là bản fork của [GMOogway/shadowrocket-rules](https://github.com/GMOogway/shadowrocket-rules) (cảm ơn tác giả), nay đi hướng riêng: rule được chọn lọc và kiểm chứng theo từng tường lửa, không đồng bộ các danh sách tự động của upstream. Giấy phép: xem [LICENSE](LICENSE).
+Started as a fork of [GMOogway/shadowrocket-rules](https://github.com/GMOogway/shadowrocket-rules) — thanks to its author. It now follows its own path: hand-picked, measured rules per firewall, not upstream's daily auto-built lists. License: see [LICENSE](LICENSE).

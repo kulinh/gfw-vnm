@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build every client format from the Shadowrocket modules (the single source).
 
-For each module (sr_proxy_list_CN / _UAE / _RU, zalo_zalopay):
+For each module (sr_proxy_list_CN / _UAE / _RU):
 
   <name>.list                 Shadowrocket RULE-SET (TYPE,value — no policy)
   sing-box/<name>.json        sing-box rule-set, source format (version 1)
@@ -23,7 +23,7 @@ import sys
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 REPO = "kulinh/gfw-vnm"
-MODULES = ("sr_proxy_list_CN", "sr_proxy_list_UAE", "sr_proxy_list_RU", "zalo_zalopay")
+MODULES = ("sr_proxy_list_CN", "sr_proxy_list_UAE", "sr_proxy_list_RU")
 LIST_TYPES = ("DOMAIN-SUFFIX", "DOMAIN", "DOMAIN-KEYWORD", "IP-CIDR", "IP-CIDR6",
               "USER-AGENT", "URL-REGEX", "GEOIP", "IP-ASN")
 SINGBOX = {"DOMAIN": "domain", "DOMAIN-SUFFIX": "domain_suffix",

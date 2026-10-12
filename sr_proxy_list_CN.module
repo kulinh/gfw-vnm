@@ -372,6 +372,8 @@ DOMAIN-SUFFIX,archive.ph,PROXY
 DOMAIN-SUFFIX,archive.today,PROXY
 DOMAIN-SUFFIX,mega.nz,PROXY
 DOMAIN-SUFFIX,mega.io,PROXY
+# transfer.it = MEGA file transfer: timeout from 6 CN probes 2026-10-13 (200 outside); megas4.com opens (redirects to mega.io)
+DOMAIN-SUFFIX,transfer.it,PROXY
 # box.com opens directly from China (200 on 3 probes, 2026-09-13) -> not added
 # Personal OneDrive: onedrive.live.com TCP timeout from China 2026-09-13 (OONI 0/115 OK);
 # live.com / Outlook still open, so only the OneDrive part is caught

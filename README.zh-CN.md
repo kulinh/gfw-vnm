@@ -33,6 +33,8 @@
 | **Hiddify** | `sing-box/<name>.srs` | 设置 → Routing → Route rules → *Rule set* |
 | *（阅读 / 审查）* | `sing-box/<name>.json` | `.srs` 的源文件（规则集版本 1，兼容 sing-box ≥ 1.8） |
 
+`sing-box/geoip-cn.json` 用途不同：中国大陆 IP 段（来自 SagerNet sing-geoip 的 `geoip-cn`），每周一由 GitHub Actions 自动更新（`.github/workflows/geoip-cn.yml`）。用于反方向：在中国境外，把访问中国 IP 的流量交给面向中国优化的代理。
+
 `<name>` 为 `sr_proxy_list_CN`、`sr_proxy_list_UAE` 或 `sr_proxy_list_RU`。下载地址：
 
 ```

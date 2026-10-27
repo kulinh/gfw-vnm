@@ -33,6 +33,8 @@ Every rule set ships in three formats, all generated from the same `.module` sou
 | **Hiddify** | `sing-box/<name>.srs` | Settings → Routing → Route rules → *Rule set* |
 | *(to read / review)* | `sing-box/<name>.json` | source of the `.srs` (rule-set version 1, any sing-box ≥ 1.8) |
 
+`sing-box/geoip-cn.json` is different: mainland China IP ranges (`geoip-cn` from SagerNet sing-geoip), refreshed every Monday by GitHub Actions (`.github/workflows/geoip-cn.yml`). It serves the opposite direction: outside China, send traffic for Chinese IPs through a China-optimized proxy.
+
 `<name>` is `sr_proxy_list_CN`, `sr_proxy_list_UAE` or `sr_proxy_list_RU`. Download from:
 
 ```

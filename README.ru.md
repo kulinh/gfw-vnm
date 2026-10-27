@@ -33,6 +33,8 @@
 | **Hiddify** | `sing-box/<name>.srs` | Настройки → Routing → Route rules → *Rule set* |
 | *(для чтения / проверки)* | `sing-box/<name>.json` | исходник `.srs` (версия формата 1, любой sing-box ≥ 1.8) |
 
+`sing-box/geoip-cn.json` — другое дело: диапазоны IP материкового Китая (`geoip-cn` из SagerNet sing-geoip), обновляются каждый понедельник через GitHub Actions (`.github/workflows/geoip-cn.yml`). Они нужны для обратного направления: за пределами Китая отправлять трафик к китайским IP через прокси, оптимизированный для Китая.
+
 `<name>` — это `sr_proxy_list_CN`, `sr_proxy_list_UAE` или `sr_proxy_list_RU`. Скачивание:
 
 ```

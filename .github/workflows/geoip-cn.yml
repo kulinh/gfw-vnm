@@ -1,0 +1,32 @@
+name: geoip-cn
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      SINGBOX_VERSION: 1.14.4
+      SOURCE: https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and decompile
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://github.com/SagerNet/sing-box/releases/download/v${SINGBOX_VERSION}/sing-box-${SINGBOX_VERSION}-linux-amd64.tar.gz" | tar -xz -C /tmp
+          curl -fsSL -o /tmp/geoip-cn.srs "$SOURCE"
+          "/tmp/sing-box-${SINGBOX_VERSION}-linux-amd64/sing-box" rule-set decompile /tmp/geoip-cn.srs -o /tmp/geoip-cn.src.json
+          python3 tools/geoip_cn.py /tmp/geoip-cn.src.json sing-box/geoip-cn.json
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          git add sing-box/geoip-cn.json
+          if git diff --cached --quiet; then echo "geoip-cn unchanged"; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "geoip-cn: refresh from SagerNet sing-geoip"
+          git push
